@@ -4,3 +4,7 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 /.idea/
+/IS.Order.Application.UnitTest/TestResults/
+/IS.Order.API.IntegrationTest/TestResults/
+/IS.Order.Persistence.IntegrationTest/TestResults/
+
