@@ -40,7 +40,7 @@ public class OrderServiceTests
         result.ShouldBe(Guid.Parse("{B0788D2F-8003-43C1-92A4-EDC76A7C5DDE}"));
     }
     
-    //[Fact]
+    [Fact]
     public async Task PlaceOrderTest_Fail_InsufficientAmount()
     {
         var service = new OrderService(_mapper, _mockOrderRepository.Object);
