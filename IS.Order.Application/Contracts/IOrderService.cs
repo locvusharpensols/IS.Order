@@ -4,6 +4,12 @@ namespace IS.Order.Application.Contracts;
 
 public interface IOrderService
 {
-    public Task<Guid> CreateOrderAsync(OrderPlacementRequestDto orderPlacementRequestDto,
+    Task<IReadOnlyList<Domain.Entities.Order>> GetAllOrders();
+
+    Task<Guid> CreateOrderAsync(OrderPlacementRequestDto orderPlacementRequestDto,
         CancellationToken cancellationToken);
+
+    Task<Domain.Entities.Order> GetByGuid(Guid guid);
+
+    Task RemoveOrder(Domain.Entities.Order order);
 }

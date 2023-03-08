@@ -14,11 +14,30 @@ public class OrderController : ControllerBase
     {
         _orderService = orderService;
     }
+
+   [HttpGet]
+    public async Task<IActionResult> GetByGuid(Guid guid){
+        var order = await _orderService.GetByGuid(guid);
+        return order != null ? Ok(order): BadRequest();
+    }
     
     [HttpPost]
     public async Task<String> PlaceOrder(OrderPlacementRequestDto request)
     {
         await _orderService.CreateOrderAsync(request, CancellationToken.None);
         return "done";
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> RemoveOrder(string orderNumber)
+    {
+        var orders = await _orderService.GetAllOrders();
+        var order = orders.FirstOrDefault(o => o.OrderNumber == orderNumber);
+        if (order is not null)
+        {
+            await _orderService.RemoveOrder(order);
+            return NoContent();
+        }
+        else return NotFound();
     }
 }

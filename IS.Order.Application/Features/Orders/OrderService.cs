@@ -15,6 +15,10 @@ public class OrderService : IOrderService
         _mapper = mapper;
         _orderRepository = orderRepository;
     }
+
+    public async Task<Domain.Entities.Order> GetByGuid(Guid guid){
+       return await _orderRepository.GetByIdAsync(guid);
+    }
     
     public async Task<Guid> CreateOrderAsync(OrderPlacementRequestDto orderPlacementRequestDto, CancellationToken cancellationToken)
     {
@@ -30,4 +34,10 @@ public class OrderService : IOrderService
         @order = await _orderRepository.AddAsync(@order);
         return @order.Id;
     }
+
+    public Task RemoveOrder(Domain.Entities.Order order)
+        =>  _orderRepository.DeleteAsync(order);
+
+    public Task<IReadOnlyList<Domain.Entities.Order>> GetAllOrders()
+        => _orderRepository.ListAllAsync();
 }
