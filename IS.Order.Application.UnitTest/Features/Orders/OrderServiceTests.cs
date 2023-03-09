@@ -35,7 +35,8 @@ public class OrderServiceTests
         //     FundId = 1121,
         //     OrderNumber = "12345"
         // };
-        var result = await service.CreateOrderAsync(await FakeData(), CancellationToken.None);
+        var orderId = 0;
+        var result = await service.CreateOrderAsync(await FakeData(orderId), CancellationToken.None);
 
         result.ShouldBe(Guid.Parse("{B0788D2F-8003-43C1-92A4-EDC76A7C5DDE}"));
     }
@@ -59,12 +60,11 @@ public class OrderServiceTests
         ex.ValidationErrors[0].ShouldBe("Amount must be greater than 0.");
     }
 
-    public Task<OrderPlacementRequestDto> FakeData()
+    public Task<OrderPlacementRequestDto> FakeData(int orderIds)
     {
         var customerIds = new[] { "999C010845", "999C011128", "999C011131", "999C000008", "999C000099" };
         var fundIds = new[] { 1111111, 1111112, 1111113, 1111114, 1111115 };
 
-        var orderIds = 0;
         var orderRequest = new Faker<OrderPlacementRequestDto>()
             // //Ensure all properties have rules. By default, StrictMode is false
             // //Set a global policy by using Faker.DefaultStrictMode
